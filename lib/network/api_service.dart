@@ -611,7 +611,8 @@ class ApiService{
     });
 
     try {
-      Response response = await _dio.post(ApiConstants.variantEdit+"${request.variantId}/3/$userId", data: formData);
+      Response response = await _dio.post(ApiConstants.variantEdit+"${variantId}/3/$userId", data: formData);
+      print(ApiConstants.variantEdit+"${request.variantId}/3/$userId");
       if (response.statusCode == 200) {
         return CommonResponseModel.fromJson(response.data);
       } else {

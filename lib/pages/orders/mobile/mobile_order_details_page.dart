@@ -34,6 +34,7 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
   }
 
   var total = 0.0;
+  var commission = 0.0;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,6 +43,9 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
     if(widget.dataBean.deliveryAssigned!=null) {
       _con.getDriverDetails(context, widget.dataBean.deliveryAssigned!);
     }
+    widget.dataBean.productDetails!.forEach((element) {
+      commission += double.parse(element.price!)  - double.parse(element.strike!);
+    });
   }
 
   @override
@@ -411,12 +415,29 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
                               Text(ApiConstants.currency+widget.dataBean.paymentDetails!.vendorDiscount!.round().toString(),style: AppStyle.font22BoldWhite.override(color: Colors.green,fontSize: 14),),
                             ],
                           ),
+
                           SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Total",style: AppStyle.font22BoldWhite.override(color: Colors.black,fontSize: 14),),
-                              Text(ApiConstants.currency+(total.round() + (widget.dataBean.addonDetails?.fold(0, (sum, item) => sum! + (int.parse(item.price!) * item.qty!)) ?? 0)).toString(),style: AppStyle.font22BoldWhite.override(color: Colors.black,fontSize: 14),),
+                              Text(ApiConstants.currency+((total.round() + (widget.dataBean.addonDetails?.fold(0, (sum, item) => sum! + (int.parse(item.price!) * item.qty!)) ?? 0))).toString(),style: AppStyle.font22BoldWhite.override(color: Colors.black,fontSize: 14),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Commission",style: AppStyle.font22BoldWhite.override(color: Colors.brown,fontSize: 14),),
+                              Text(ApiConstants.currency+(commission).round().toString().toString(),style: AppStyle.font22BoldWhite.override(color: Colors.brown,fontSize: 14),),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Payout Amount",style: AppStyle.font22BoldWhite.override(color: Colors.black,fontSize: 14),),
+                              Text(ApiConstants.currency+((total.round() + (widget.dataBean.addonDetails?.fold(0, (sum, item) => sum! + (int.parse(item.price!) * item.qty!)) ?? 0)) - commission).toString(),style: AppStyle.font22BoldWhite.override(color: Colors.black,fontSize: 14),),
                             ],
                           ),
                         ],

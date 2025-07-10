@@ -141,6 +141,10 @@ class _MobilePayoutPageState extends StateMVC<MobilePayoutPage> {
                   var item = _con.orderModel.data![index];
                   var addTotal = item.addonDetails?.fold(0, (sum, item) => sum! + (int.parse(item.price!) * item.qty!)) ?? 0;
                   var totalAmount = (item.paymentDetails!.subTotal! +item.paymentDetails!.tax! + item.paymentDetails!.packingCharge! + addTotal) - item.paymentDetails!.vendorDiscount!;
+                  var commission = 0.0;
+                  item.productDetails!.forEach((element) {
+                    commission += double.parse(element.price!)  - double.parse(element.strike!);
+                  });
                   return Card(
                     elevation: 2.0,
                     margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -152,7 +156,7 @@ class _MobilePayoutPageState extends StateMVC<MobilePayoutPage> {
                         children: [
                           Row(
                             children: [
-                              Text(ApiConstants.currency+totalAmount.round().toString(),style: AppStyle.font14MediumBlack87.override(color: Colors.green),),
+                              Text(ApiConstants.currency+(totalAmount - commission).round().toString(),style: AppStyle.font14MediumBlack87.override(color: Colors.green),),
                               SizedBox(width: 10,),
                               item.settlement! == "pending" ? Text("Pending",style: AppStyle.font14MediumBlack87.override(color: Colors.red)):
                               Text("Completed",style: AppStyle.font14MediumBlack87.override(color: Colors.green))
