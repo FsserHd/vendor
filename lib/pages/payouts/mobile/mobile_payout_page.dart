@@ -143,7 +143,7 @@ class _MobilePayoutPageState extends StateMVC<MobilePayoutPage> {
                   var totalAmount = (item.paymentDetails!.subTotal! +item.paymentDetails!.tax! + item.paymentDetails!.packingCharge! + addTotal) - item.paymentDetails!.vendorDiscount!;
                   var commission = 0.0;
                   item.productDetails!.forEach((element) {
-                    commission += double.parse(element.price!)  - double.parse(element.strike!);
+                    commission += (double.parse(element.price!)  - double.parse(element.strike!)) * element.qty!;
                   });
                   return Card(
                     elevation: 2.0,

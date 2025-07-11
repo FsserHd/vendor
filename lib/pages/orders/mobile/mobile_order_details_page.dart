@@ -44,7 +44,7 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
       _con.getDriverDetails(context, widget.dataBean.deliveryAssigned!);
     }
     widget.dataBean.productDetails!.forEach((element) {
-      commission += double.parse(element.price!)  - double.parse(element.strike!);
+      commission += (double.parse(element.price!)  - double.parse(element.strike!))* element.qty!;
     });
   }
 
