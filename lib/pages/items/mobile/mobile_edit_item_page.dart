@@ -31,6 +31,8 @@ class _MobileEditItemPageState extends StateMVC<MobileEditItemPage> {
   late HomeController _con;
   String foodType = 'Select Type';
   Menu? _selectedItem;
+  String startTime = "Menu Start Time";
+  String endTime = "Menu End Time";
   var addEditRequest = AddItemRequest();
   _MobileEditItemPageState() : super(HomeController()) {
     _con = controller as HomeController;
@@ -56,6 +58,10 @@ class _MobileEditItemPageState extends StateMVC<MobileEditItemPage> {
        foodType = 'Non-Veg';
        _con.addItemRequest.foodType = "2";
      }
+     startTime = widget.itemBean.fromTime!;
+     endTime = widget.itemBean.toTime!;
+     _con.addItemRequest.startTime = startTime;
+     _con.addItemRequest.endTime = endTime;
      print(widget.itemBean.toJson());
    });
   }
@@ -311,7 +317,94 @@ class _MobileEditItemPageState extends StateMVC<MobileEditItemPage> {
                     ),
                   ),
                 ),
-                SizedBox(height:  10,),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: InkWell(
+                    onTap: () async {
+                      TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (pickedTime != null) {
+                        // You can store this in a variable or setState to display
+                        print("Selected time: ${pickedTime.format(context)}");
+                        String startTime = pickedTime.format(context);
+                        _con.addItemRequest.startTime = startTime;
+                        setState(() {
+                          this.startTime  = startTime;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.cardShadowColor,
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          startTime,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: InkWell(
+                    onTap: () async {
+                      TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (pickedTime != null) {
+                        // You can store this in a variable or setState to display
+                        print("Selected time: ${pickedTime.format(context)}");
+                        String endTime = pickedTime.format(context);
+                        _con.addItemRequest.endTime = endTime;
+                        // this.endTime  = endTime;
+                        setState(() {
+                          this.endTime  = endTime;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.cardShadowColor,
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          endTime,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
                 Text("Product Image",style: AppStyle.font14MediumBlack87.override(fontSize: 12),),
                 InkWell(
                     onTap: (){

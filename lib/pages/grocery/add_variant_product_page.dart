@@ -390,7 +390,7 @@ class _AddVariantProductPageState extends StateMVC<AddVariantProductPage> {
                     SizedBox(height:  10,),
                     InkWell(
                         onTap: (){
-                          _pickImage();
+                            _pickImage();
                         },
                         child: type == "add" ?  _image==null ? Image.asset(
                           "assets/images/upload_image.png",
@@ -398,6 +398,7 @@ class _AddVariantProductPageState extends StateMVC<AddVariantProductPage> {
                           width: 100,
                         ):Image.file(_image!,height: 100,width: 100,):Image.network(editImage,height: 100,width: 100,)
                     ),
+
                     SizedBox(height:  10,),
                     InkWell(
                       onTap: (){

@@ -357,13 +357,13 @@ class _DashboardOrderPageState extends StateMVC<DashboardOrderPage> with Widgets
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Image.asset(
-                                                          "assets/images/non_veg.png",
-                                                          height: 14,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 2,
-                                                        ),
+                                                        // Image.asset(
+                                                        //   "assets/images/non_veg.png",
+                                                        //   height: 14,
+                                                        // ),
+                                                        // SizedBox(
+                                                        //   width: 2,
+                                                        // ),
                                                         Text(
                                                           "${productBean.qty}x",
                                                           style: AppStyle

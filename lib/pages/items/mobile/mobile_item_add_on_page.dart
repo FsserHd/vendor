@@ -88,13 +88,13 @@ class _MobileItemAddOnPageState extends StateMVC<MobileItemAddOnPage> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Row(
-                                              children: [
-                                                Image.asset("assets/images/non_veg.png",height: 15,width: 15,),
-                                                SizedBox(width: 2,),
-                                                Text(addOnSet.name!,style: AppStyle.font14MediumBlack87.override(color: Colors.black,fontWeight: FontWeight.bold),),
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   children: [
+                                            //     Image.asset("assets/images/non_veg.png",height: 15,width: 15,),
+                                            //     SizedBox(width: 2,),
+                                            //     Text(addOnSet.name!,style: AppStyle.font14MediumBlack87.override(color: Colors.black,fontWeight: FontWeight.bold),),
+                                            //   ],
+                                            // ),
                                             Text("${ApiConstants.currency+addOnSet.salesPrice!}",style: AppStyle.font14MediumBlack87.override(color: Colors.black),),
                                             SizedBox(height: 8,),
                                             Padding(

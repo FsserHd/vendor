@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:vendor/utils/validation_utils.dart';
 
 
 import '../../../constants/app_colors.dart';
@@ -27,6 +28,8 @@ class _MobileAddItemPageState extends StateMVC<MobileAddItemPage> {
   late HomeController _con;
   String foodType = 'Select Type';
   Menu? _selectedItem;
+  String startTime = "Menu Start Time";
+  String endTime = "Menu End Time";
   _MobileAddItemPageState() : super(HomeController()) {
     _con = controller as HomeController;
   }
@@ -389,6 +392,95 @@ class _MobileAddItemPageState extends StateMVC<MobileAddItemPage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: InkWell(
+                    onTap: () async {
+                      TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (pickedTime != null) {
+                        // You can store this in a variable or setState to display
+                        print("Selected time: ${pickedTime.format(context)}");
+                        String startTime = pickedTime.format(context);
+                        _con.addItemRequest.startTime = startTime;
+                        setState(() {
+                          this.startTime  = startTime;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.cardShadowColor,
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          startTime,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: InkWell(
+                    onTap: () async {
+                      TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (pickedTime != null) {
+                        // You can store this in a variable or setState to display
+                        print("Selected time: ${pickedTime.format(context)}");
+                        String endTime = pickedTime.format(context);
+                        _con.addItemRequest.endTime = endTime;
+                        // this.endTime  = endTime;
+                        setState(() {
+                          this.endTime  = endTime;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.cardShadowColor,
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          endTime,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 20),
                 SizedBox(height:  10,),
                 InkWell(
                   onTap: (){
@@ -405,7 +497,11 @@ class _MobileAddItemPageState extends StateMVC<MobileAddItemPage> {
                   onTap: (){
                     FocusManager.instance.primaryFocus?.unfocus();
                     _con.itemKey.currentState!.save();
-                    _con.addItem(context, _image);
+                    if(_con.addItemRequest.startTime!=null && _con.addItemRequest.endTime!=null) {
+                      _con.addItem(context, _image);
+                    }else{
+                      ValidationUtils.showAppToast("Select item timing");
+                    }
                   },
                   child: Container(
                     width: double.infinity,

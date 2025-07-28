@@ -135,8 +135,8 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Image.asset("assets/images/non_veg.png",height: 20,),
-                                                    SizedBox(width: 4,),
+                                                    // Image.asset("assets/images/non_veg.png",height: 20,),
+                                                    // SizedBox(width: 4,),
                                                     Image.network(productSet.image!,height: 50,width: 50, fit: BoxFit.fill,),
                                                     SizedBox(width: 4,),
                                                     Column(
@@ -252,8 +252,8 @@ class _MobileOrderDetailsPageState extends StateMVC<MobileOrderDetailsPage> {
                             children: [
                               Row(
                                 children: [
-                                  Image.asset("assets/images/non_veg.png",height: 12,width: 12,),
-                                  SizedBox(width: 5,),
+                                  // Image.asset("assets/images/non_veg.png",height: 12,width: 12,),
+                                  // SizedBox(width: 5,),
                                   Row(
                                     children: [
                                       Text(productBean.qty.toString()+"x",style  : AppStyle.font14MediumBlack87.override(fontSize: 13,color: Colors.grey),),

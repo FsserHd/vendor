@@ -16,6 +16,8 @@ class AddItemRequest {
   String? varientId;
   String? productId;
   String? title;
+  String? startTime;
+  String? endTime;
 
   AddItemRequest(
       {this.fromTime,
@@ -29,7 +31,7 @@ class AddItemRequest {
         this.foodType,
         this.packingCharge,
         this.tax,
-        this.discount,this.category,this.title,this.varientId});
+        this.discount,this.category,this.title,this.varientId,this.endTime,this.startTime});
 
   AddItemRequest.fromJson(Map<String, dynamic> json) {
     fromTime = json['fromTime'];
@@ -46,6 +48,8 @@ class AddItemRequest {
     discount = json['discount'];
     category = json['category'];
     title = json['title'];
+    startTime = json['startTime'];
+    endTime = json['endTime'];
 
   }
 
@@ -66,6 +70,8 @@ class AddItemRequest {
     data['varientId'] = this.varientId;
     data['productId'] = this.productId;
     data['title'] = this.title;
+    data['startTime'] = this.startTime;
+    data['endTime'] = this.endTime;
     return data;
   }
 }
